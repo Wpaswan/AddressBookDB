@@ -1,18 +1,11 @@
-﻿Create procedure AddAddressBook1
+﻿---------Delete----------
+create procedure DeleteAddressBook
 (
-@firstname varchar(150),
-@lastname varchar(150),
-@address varchar(150),
-@city varchar(150),
-@state varchar(150),
-@zip int,
-@phonenumber varchar(150),
-@email varchar(150)
-
+@id int
 )
-as
-begin try
-Insert into AddressBook values( @firstname,@lastname,@address,@city,@state,@zip,@phonenumber,@email)
+as 
+begin TRY 
+delete from AddressBook where id = @id
 End TRY
 BEGIN CATCH
 SELECT
