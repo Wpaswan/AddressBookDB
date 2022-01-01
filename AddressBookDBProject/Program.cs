@@ -1,2 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using AddressBookDBProject;
+Console.WriteLine("\t-----Welcome To Addressbook Management System------");
+AddressBookModel addressBookmodel = new AddressBookModel();
+AddressBookRepo repo = new AddressBookRepo();
+addressBookmodel.firstname="Dablu";
+addressBookmodel.lastname="Paswan";
+addressBookmodel.address="At+Post-Sunday Bazar";
+addressBookmodel.city="Bermo";
+addressBookmodel.state="Jharkhand";
+addressBookmodel.zip=2232;
+addressBookmodel.phonenumber="1231414";
+addressBookmodel.email="dablu@gmail.com";
+repo.AddData(addressBookmodel);
