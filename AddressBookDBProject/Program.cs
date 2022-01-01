@@ -11,3 +11,4 @@ addressBookmodel.zip=2232;
 addressBookmodel.phonenumber="1231414";
 addressBookmodel.email="dablu@gmail.com";
 repo.AddData(addressBookmodel);
+repo.editContacts(addressBookmodel);

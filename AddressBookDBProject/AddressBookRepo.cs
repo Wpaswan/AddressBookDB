@@ -51,5 +51,35 @@ namespace AddressBookDBProject
                 throw new Exception(e.Message);
             }
         }
+        public void editContacts(AddressBookModel model)
+        {
+            try
+            {
+                SqlConnection connection=new SqlConnection(connectionString);
+                
+                using(connection)
+                {
+                    SqlCommand com = new SqlCommand("AddAddressBook1", connection);
+                    com.CommandType = System.Data.CommandType.StoredProcedure;
+                    Console.WriteLine("Enter first name");
+                    string editFirstName=Console.ReadLine();
+                    Console.WriteLine("Enter  name");
+                    string firstName=Console.ReadLine();
+
+                    connection.Open();
+
+                    string query = @"update  AddressBook set firstName="+editFirstName+"  where  firstName="+firstName+""; 
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                   
+                    connection.Close();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+            }
+        }
     }
 }
