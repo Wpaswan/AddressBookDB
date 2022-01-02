@@ -42,12 +42,50 @@ namespace AddressBookDBProject
                     var result = com.ExecuteNonQuery();
                     connection.Close();
                     if (result != 0)
-                    {
-                        People.Add(data);
-                        PeopleDictionary[AddressBookName]=People;
+                    { //use LINQ to query the list for the first person with the same first name as the first name the user entered.
+                      //used lambda operator
 
+                        AddressBookModel person1 = People.FirstOrDefault(x => x.firstname==data.firstname);
+                        AddressBookModel person2 = People.FirstOrDefault(x => x.lastname==data.lastname);
+                        //Duplicate Check is done on Person Name while adding person to Address Book
+                        if (person1!=null && person2!=null)
+                        {
+                            Console.WriteLine("Sorry this contact exist");
+                        }
+                        else
+                        {
+                            People.Add(data);
+                            PeopleDictionary[AddressBookName]=People;
+                        }
                         return data;
                     }
+                    if (PeopleDictionary.Count == 0)
+                    {
+                        Console.WriteLine("Your address book is empty. Press any key to continue.");
+                        Console.ReadKey();
+                        
+                    }
+                    Console.WriteLine("Here are the current people in your address book:\n");
+                    foreach(KeyValuePair<string, List<AddressBookModel>> valuePair in PeopleDictionary)
+                    {
+                        Console.WriteLine("Address book name:"+valuePair.Key);
+                        foreach (AddressBookModel person in valuePair.Value)
+                        {
+                            Console.WriteLine("Id="+person.id);
+                            Console.WriteLine("First Name: " + person.firstname);
+                            Console.WriteLine("Last Name: " + person.lastname);
+                            Console.WriteLine("Phone Number: " + person.phonenumber);
+                            Console.WriteLine("Address: " + person.address);
+                            Console.WriteLine("city: " + person.city);
+                            Console.WriteLine("State : " + person.state);
+                            Console.WriteLine("Zip:"+person.zip);
+                            
+                            Console.WriteLine("-------------------------------------------");
+                        }
+                    }
+
+                    Console.WriteLine("\nPress any key to continue.");
+                    Console.ReadKey();
                     return default;
 
 
@@ -138,6 +176,115 @@ namespace AddressBookDBProject
             {
                 throw new Exception(e.Message);
             }
+        }
+        public void FindPersonInCityOrState()
+        {
+            Console.WriteLine("Enter  1. for city 2. state to find for particular person");
+            int ch = Convert.ToInt32(Console.ReadLine());
+
+
+
+            switch (ch)
+            {
+                case 1:
+                    Console.WriteLine("Choose Type city else or state to find perticular person");
+                    string city1 = Console.ReadLine();
+
+                    //creating list of person according to city
+                    List<AddressBookModel> cityWisePeople = new List<AddressBookModel>();
+                    Dictionary<string, List<AddressBookModel>> cityWisePeopleDictionary = new Dictionary<string, List<AddressBookModel>>();
+
+
+                    foreach (KeyValuePair<string, List<AddressBookModel>> valuePair in PeopleDictionary)
+                    { //for state do the same thing for state
+                        AddressBookModel person1 = valuePair.Value.Find(x => x.city.ToLower()==city1.ToLower());
+                        if (person1!=null)
+                        {
+                            cityWisePeople.Add(person1);
+
+                        }
+
+                    }
+                    cityWisePeopleDictionary[city1]=cityWisePeople;
+                    Console.WriteLine($"People in {city1}: ");
+                    foreach (var city in cityWisePeopleDictionary.Keys)
+                    {
+                        if (city.ToLower()==city1.ToLower())
+                        {
+                            foreach (var person in cityWisePeopleDictionary[city])
+                            {
+                                if (person!=null)
+                                {
+                                    Console.WriteLine("Id="+person.id);
+                                    Console.WriteLine("First Name: " + person.firstname);
+                                    Console.WriteLine("Last Name: " + person.lastname);
+                                    Console.WriteLine("Phone Number: " + person.phonenumber);
+                                    Console.WriteLine("Address: " + person.address);
+                                    Console.WriteLine("city: " + person.city);
+                                    Console.WriteLine("State : " + person.state);
+                                    Console.WriteLine("Zip:"+person.zip);
+
+                                    Console.WriteLine("-------------------------------------------");
+                                }
+                            }
+                        }
+                    }
+
+                   
+                    break;
+                case 2:
+                    Console.WriteLine("Enter state to find perticular person");
+                    string SearchAccordingstate = Console.ReadLine();
+
+                    //creating list of person according to city
+                    List<AddressBookModel> stateWisePeople = new List<AddressBookModel>();
+                    Dictionary<string, List<AddressBookModel>> stateWisePeopleDictionary = new Dictionary<string, List<AddressBookModel>>();
+
+
+                    foreach (KeyValuePair<string, List<AddressBookModel>> valuePair in PeopleDictionary)
+                    { //Using lambda => here
+                        AddressBookModel person1 = valuePair.Value.Find(x => x.state.ToLower()==SearchAccordingstate.ToLower());
+                        if (person1!=null)
+                        {
+                            stateWisePeople.Add(person1);
+
+                        }
+
+                    }
+                    stateWisePeopleDictionary[SearchAccordingstate]=stateWisePeople;
+                    Console.WriteLine($"People in {SearchAccordingstate}: ");
+                    foreach (var state in stateWisePeopleDictionary.Keys)
+                    {
+                        if (state.ToLower()==SearchAccordingstate.ToUpper())
+                        {
+                            foreach (var person in stateWisePeopleDictionary[state])
+                            {
+                                if (person!=null)
+                                {
+
+                                    Console.WriteLine("Id="+person.id);
+                                    Console.WriteLine("First Name: " + person.firstname);
+                                    Console.WriteLine("Last Name: " + person.lastname);
+                                    Console.WriteLine("Phone Number: " + person.phonenumber);
+                                    Console.WriteLine("Address: " + person.address);
+                                    Console.WriteLine("city: " + person.city);
+                                    Console.WriteLine("State : " + person.state);
+                                    Console.WriteLine("Zip:"+person.zip);
+
+                                    Console.WriteLine("-------------------------------------------");
+                                }
+                            }
+                        }
+
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Wrong choice!!");
+                    break;
+
+            }
+
+
         }
         //To Get AddressBook Table data 
         public bool GetAllContact()
