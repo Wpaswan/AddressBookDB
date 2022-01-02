@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -130,6 +131,51 @@ namespace AddressBookDBProject
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+        //To Get AddressBook Table data 
+        public bool GetAllContact()
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(connectionString);
+                //   SqlConnection connection = new SqlConnection(connectionString);
+                AddressBookModel addressBookmodel = new AddressBookModel();
+                using (connection)
+                {
+                    string query = @"Select * from AddressBook";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            addressBookmodel.firstname = dr.GetString(0);
+                            addressBookmodel.lastname = dr.GetString(1);
+                            addressBookmodel.address = dr.GetString(2);
+                            addressBookmodel.city = dr.GetString(3);
+                            addressBookmodel.state = dr.GetString(4);
+                            addressBookmodel.zip =dr.GetInt32(5);
+                            addressBookmodel.phonenumber = dr.GetString(6);
+                            addressBookmodel.email = dr.GetString(7);
+                            addressBookmodel.id = dr.GetInt32(8);
+                            Console.WriteLine(addressBookmodel.id+" "+addressBookmodel.firstname+" "+addressBookmodel.lastname+" "+" "+addressBookmodel.address+" "+addressBookmodel.city+" "+addressBookmodel.state+" "+addressBookmodel.phonenumber+" "+addressBookmodel.zip+" "+addressBookmodel.email);
+                           Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No data found");
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                return false;
             }
         }
     }
