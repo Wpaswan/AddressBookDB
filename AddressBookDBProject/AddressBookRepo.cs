@@ -177,6 +177,29 @@ namespace AddressBookDBProject
                 throw new Exception(e.Message);
             }
         }
+        public void sortByFirstName()
+        {
+            foreach (var addressBook in PeopleDictionary)
+            {
+                Console.WriteLine("Address book name:"+addressBook.Key);
+
+                foreach (var person in
+                    addressBook.Value.OrderBy(x => x.firstname))
+                {
+                    Console.WriteLine("Id="+person.id);
+                    Console.WriteLine("First Name: " + person.firstname);
+                    Console.WriteLine("Last Name: " + person.lastname);
+                    Console.WriteLine("Phone Number: " + person.phonenumber);
+                    Console.WriteLine("Address: " + person.address);
+                    Console.WriteLine("city: " + person.city);
+                    Console.WriteLine("State : " + person.state);
+                    Console.WriteLine("Zip:"+person.zip);
+
+                    Console.WriteLine("-------------------------------------------");
+                }
+            }
+
+        }
         public void FindPersonInCityOrState()
         {
             Console.WriteLine("Enter  1. for city 2. state to find for particular person");
