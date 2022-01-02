@@ -8,6 +8,7 @@ Console.WriteLine("\t-----3. To Delete                            ------");
 Console.WriteLine("\t-----4. To Veiw                              ------");
 Console.WriteLine("\t-----5. To Veiw person by city or state      -----");
 Console.WriteLine("\t-----6. Sort by First name                   -----");
+Console.WriteLine("\t-----6. Sort by First city state or zip      -----");
 int choice=Convert.ToInt32(Console.ReadLine());
 switch (choice) {
     case 1:
@@ -70,5 +71,8 @@ break ;
         break;
     case 6:
         repo.sortByFirstName();
+        break;
+    case 7:
+        repo.sortByCityStateOrZip();
         break;
 }
