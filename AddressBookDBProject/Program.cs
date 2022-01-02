@@ -9,16 +9,22 @@ Console.WriteLine("\t-----4. To Veiw------");
 int choice=Convert.ToInt32(Console.ReadLine());
 switch (choice) {
     case 1:
-
-
-addressBookmodel.firstname="Dablu";
-addressBookmodel.lastname="Paswan";
-addressBookmodel.address="At+Post-Sunday Bazar";
-addressBookmodel.city="Bermo";
-addressBookmodel.state="Jharkhand";
-addressBookmodel.zip=2232;
-addressBookmodel.phonenumber="1231414";
-addressBookmodel.email="dablu@gmail.com";
+        Console.WriteLine("Enter FirstName");
+        addressBookmodel.firstname=Console.ReadLine();
+        Console.WriteLine("Enter LastName");
+        addressBookmodel.lastname=Console.ReadLine();
+        Console.WriteLine("Enter Address:");
+        addressBookmodel.address=Console.ReadLine();
+        Console.WriteLine("Enter City");
+        addressBookmodel.city=Console.ReadLine();
+        Console.WriteLine("Enter State:");
+        addressBookmodel.state=Console.ReadLine();
+        Console.WriteLine("Enter Zip:");
+        addressBookmodel.zip=Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter phone number");
+        addressBookmodel.phonenumber=Console.ReadLine();
+        Console.WriteLine("Enter Email");
+        addressBookmodel.email=Console.ReadLine();
 
         var result = repo.AddData(addressBookmodel);
         if (result != null)

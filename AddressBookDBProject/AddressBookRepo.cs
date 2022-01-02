@@ -13,9 +13,13 @@ namespace AddressBookDBProject
        
        public static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                          Initial Catalog=AddressBookDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //To Add details    
+        public static List<AddressBookModel> People = new List<AddressBookModel>();
+
+        public static Dictionary<string, List<AddressBookModel>> PeopleDictionary = new Dictionary<string, List<AddressBookModel>>();
         public AddressBookModel AddData(AddressBookModel data)
         {
+            Console.WriteLine("Enter Address Book Name");
+            string AddressBookName=Console.ReadLine();
             try
             {
                 SqlConnection connection = new SqlConnection(connectionString);
@@ -39,6 +43,8 @@ namespace AddressBookDBProject
                     connection.Close();
                     if (result != 0)
                     {
+                        People.Add(data);
+                        PeopleDictionary[AddressBookName]=People;
 
                         return data;
                     }
