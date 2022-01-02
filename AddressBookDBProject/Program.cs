@@ -5,6 +5,7 @@ Console.WriteLine("\t-----Welcome To Addressbook Management System------");
 Console.WriteLine("\t-----1. To add------");
 Console.WriteLine("\t-----2. To Edit------");
 Console.WriteLine("\t-----3. To Delete------");
+Console.WriteLine("\t-----4. To Veiw------");
 int choice=Convert.ToInt32(Console.ReadLine());
 switch (choice) {
     case 1:
@@ -52,5 +53,8 @@ break ;
             Console.WriteLine("Record deleted");
         else
             Console.WriteLine("Not deleted");
+        break;
+    case 4:
+        repo.GetAllContact();
         break;
 }

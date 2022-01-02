@@ -1,11 +1,11 @@
-﻿---------Delete----------
-create procedure DeleteAddressBook
+﻿---------------Veiw---------------------------
+create procedure GetAddressBookTable1
 (
 @id int
 )
 as 
 begin TRY 
-delete from AddressBook where id = @id
+select * from AddressBook
 End TRY
 BEGIN CATCH
 SELECT
